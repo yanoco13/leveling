@@ -1,0 +1,30 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/arena}
+    username: ${DB_USER:arena}
+    password: ${DB_PASSWORD:arena123}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+management:
+  endpoints.web.exposure.include: health,info
+  endpoint.health.probes.enabled: true
+
+security:
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:3000}
+  oauth2:
+    resourceserver:
+      jwt:
+        issuer-uri: https://securetoken.google.com/levelingarenq
+        jwk-set-uri: https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com
+        audiences: levelingarenq

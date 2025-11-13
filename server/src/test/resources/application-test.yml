@@ -1,0 +1,11 @@
+security:
+  disable: true   # ← これで本番 SecurityConfig を無効化
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testdb   # 使わないならダミーでもOK
+    username: test
+    password: test
+  jpa:
+    hibernate:
+      ddl-auto: none

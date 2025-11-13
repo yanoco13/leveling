@@ -2,6 +2,7 @@ package com.levelog.arena.domain;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "attributes")
@@ -14,4 +15,8 @@ public class Attributes {
     private int vit;
     private OffsetDateTime updatedAt;
     // getters/setters...
+
+    public UUID getUserId() {
+        return userId;
+    }
 }

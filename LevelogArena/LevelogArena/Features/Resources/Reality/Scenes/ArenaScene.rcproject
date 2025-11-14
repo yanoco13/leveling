@@ -1,0 +1,13 @@
+import RealityKit
+
+struct ArenaSceneView: View {
+    var body: some View {
+        RealityView { content in
+            if let scene = try? await Entity(named: "ArenaScene") {
+                content.add(scene)
+            }
+        }
+        .frame(height: 400)
+    }
+}
+

@@ -15,7 +15,6 @@ public class TaskController {
         this.service = service;
     }
 
-    @RequestMapping("/get/tasks")
     @GetMapping
     public List<TaskResponse> list() {
         return service.findAll();

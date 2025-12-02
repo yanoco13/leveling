@@ -1,4 +1,4 @@
-package com.levelog.arena.web;
+package com.levelog.arena.controller;
 
 import org.springframework.web.bind.annotation.*;
 

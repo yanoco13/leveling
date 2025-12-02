@@ -1,4 +1,4 @@
-package com.levelog.arena.web;
+package com.levelog.arena.controller;
 
 import com.levelog.arena.domain.task.TaskService;
 import com.levelog.arena.domain.task.dto.TaskRequest;

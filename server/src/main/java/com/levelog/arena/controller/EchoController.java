@@ -1,4 +1,4 @@
-package com.levelog.arena.web;
+package com.levelog.arena.controller;
 
 import java.util.Map;
 import org.springframework.security.oauth2.jwt.Jwt;

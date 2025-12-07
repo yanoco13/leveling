@@ -1,8 +1,8 @@
 package com.levelog.arena.domain.task.dto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
-public record TaskRequest(String title, String category, LocalDateTime startDate,
-        LocalDateTime endDate) {
+public record TaskRequest(Integer id, String title, String category, ZonedDateTime startDate,
+                ZonedDateTime endDate, Boolean isDone) {
 }

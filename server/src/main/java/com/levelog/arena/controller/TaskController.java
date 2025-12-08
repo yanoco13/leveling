@@ -1,8 +1,10 @@
 package com.levelog.arena.controller;
 
 import com.levelog.arena.domain.task.TaskService;
+import com.levelog.arena.domain.task.dto.CreateTaskRequest;
 import com.levelog.arena.domain.task.dto.TaskRequest;
 import com.levelog.arena.domain.task.dto.TaskResponse;
+import com.levelog.arena.domain.task.dto.UpdateTaskRequest;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -20,8 +22,16 @@ public class TaskController {
         return service.findAll();
     }
 
+
     @PostMapping
-    public TaskResponse create(@RequestBody TaskRequest req) {
+    public TaskResponse create(@RequestBody CreateTaskRequest req) {
         return service.create(req);
     }
+
+    @PutMapping("/{id}")
+    public TaskResponse update(@PathVariable Integer id, @RequestBody UpdateTaskRequest req) {
+        return service.update(id, req);
+    }
+
+
 }

@@ -14,6 +14,7 @@ struct LogEntry: Identifiable, Codable {
         case health
         case hobby
         case other
+        case doneTask
 
         var id: String { rawValue }
 
@@ -24,6 +25,7 @@ struct LogEntry: Identifiable, Codable {
             case .health: return "健康"
             case .hobby: return "趣味"
             case .other: return "その他"
+            case .doneTask: return "タスク完了"
             }
         }
 
@@ -34,6 +36,7 @@ struct LogEntry: Identifiable, Codable {
             case .health: return "💪"
             case .hobby: return "🎨"
             case .other: return "✨"
+            case .doneTask: return "✅"
             }
         }
     }

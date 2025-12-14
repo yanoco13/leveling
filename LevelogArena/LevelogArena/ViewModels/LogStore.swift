@@ -49,3 +49,19 @@ extension Collection where Element == LogEntry {
                     entries: $0.value.sorted { $0.date > $1.date }) }
     }
 }
+
+extension LogStore {
+
+    /// 指定日に完了したタスク一覧
+    func doneTaskEntries(onSameDayAs date: Date) -> [LogEntry] {
+        entries
+            .filter { $0.category == .doneTask }
+            .filter { calendar.isDate($0.date, inSameDayAs: date) }
+            .sorted { $0.date > $1.date }
+    }
+
+    /// カレンダー表示用：完了タスク数
+    func doneTaskCount(onSameDayAs date: Date) -> Int {
+        doneTaskEntries(onSameDayAs: date).count
+    }
+}

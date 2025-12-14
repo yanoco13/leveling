@@ -99,10 +99,9 @@ struct CalendarView: View {
     }
 
     // MARK: - 日セル表示
-
     @ViewBuilder
     private func dayCell(for date: Date) -> some View {
-        let count = store.count(onSameDayAs: date)
+        let count = store.doneTaskCount(onSameDayAs: date)
         let isToday = calendar.isDateInToday(date)
 
         Button {
@@ -112,7 +111,6 @@ struct CalendarView: View {
         } label: {
             VStack(spacing: 4) {
                 Text(dayFormatter.string(from: date))
-                    .font(.body)
                     .foregroundColor(isToday ? .blue : .primary)
 
                 if count > 0 {
@@ -120,22 +118,11 @@ struct CalendarView: View {
                         .font(.caption2)
                         .padding(4)
                         .background(
-                            Circle()
-                                .fill(Color.blue.opacity(0.15))
+                            Circle().fill(Color.green.opacity(0.2))
                         )
-                } else {
-                    // 何もしない or 薄いドットを表示してもOK
-                    Circle()
-                        .frame(width: 4, height: 4)
-                        .opacity(0)
                 }
             }
             .frame(maxWidth: .infinity, minHeight: 40)
-            .padding(4)
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(isToday ? Color.blue : Color.clear, lineWidth: 1)
-            )
         }
         .buttonStyle(.plain)
     }

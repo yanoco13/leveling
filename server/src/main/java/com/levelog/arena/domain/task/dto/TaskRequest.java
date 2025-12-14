@@ -4,5 +4,5 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 public record TaskRequest(Integer id, String title, String category, ZonedDateTime startDate,
-                ZonedDateTime endDate, Boolean isDone) {
+        ZonedDateTime endDate, Boolean isDeleteFlg, Boolean isDone) {
 }

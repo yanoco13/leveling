@@ -9,7 +9,7 @@ struct LevelogArenaApp: App {
         WindowGroup {
             TabView {
                 NavigationStack { TaskView() }.tabItem { Label("Task", systemImage: "list.bullet") }
-                NavigationStack { ArenaView() }.tabItem { Label("Home", systemImage: "house.fill") }
+                NavigationStack { HomeView() }.tabItem { Label("Home", systemImage: "house.fill") }
                 NavigationStack { HistoryView() }.tabItem { Label("History", systemImage: "calendar") }
                 NavigationStack { TodayView() }.tabItem { Label("Today", systemImage: "sun.max") }
                 NavigationStack { CalendarView() }.tabItem { Label("Calendar", systemImage: "calendar") }

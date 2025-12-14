@@ -181,7 +181,7 @@ struct TaskView: View {
     }
     
     private func putTaskDelete(task: TaskItem) async throws {
-        guard let url = URL(string: "http://<HOST>/api/tasks/\(task.id)") else { return }
+        guard let url = URL(string: "http://localhost:8080/api/tasks/\(task.id)") else { return }
 
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"

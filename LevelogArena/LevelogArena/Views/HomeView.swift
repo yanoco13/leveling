@@ -1,45 +1,25 @@
-//
-//  HomeView.swift
-//  LevelogArena
-//
-
 import SwiftUI
 
 struct HomeView: View {
-    @State private var value: Double = 0
-    @EnvironmentObject var state: AppState
-    var body: some View {
-//        NavigationStack {
-//            content
-//            .navigationTitle("Levelog Arena")
-//            .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Refresh") { Task { await state.refreshProfile() } } } }
-//            .task { if case .idle = state.profile { await state.refreshProfile() } }
-//        }
-        VStack {
-                    Slider(value: $value, in: 0...100)
-                        .padding()
+    @State private var me: MeStatus = .mock
 
-                    Text("値: \(value, specifier: "%.1f")")
-                        .font(.title)
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 16) {
+                    HomeHeaderCard(me: me)
+                        .padding(16)
+                        .background(.background)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color(.systemGray4), lineWidth: 1)
+                        )
+                        .shadow(color: .black.opacity(0.05), radius: 8, y: 3)
+                }
+                .padding(16)
+            }
+            .navigationTitle("Home")
         }
     }
-
-
-//    @ViewBuilder var content: some View {
-//        switch state.profile {
-//            case .idle, .loading:
-//            ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
-//            case .failed(let error):
-//            ErrorView(error: error) { Task { await state.refreshProfile() } }
-//            case .loaded(let p):
-//            ScrollView {
-//                VStack(spacing: 16) {
-//                    ProfileCard(profile: p)
-//                    TaskQuickForm()
-//                    NavigationLink(value: Route.arena) { PrimaryButton(title: "Start Battle", action: {}) }
-//                }.padding()
-//            }
-//
-//        }
-//    }
 }

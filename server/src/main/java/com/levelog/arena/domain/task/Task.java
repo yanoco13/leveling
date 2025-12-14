@@ -21,6 +21,7 @@ public class Task {
     private String category;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
+    private boolean isDeleteFlg = false;
     private boolean isDone = false;
     private ZonedDateTime createTime = ZonedDateTime.now();
     private ZonedDateTime updateTime = ZonedDateTime.now();
@@ -28,11 +29,12 @@ public class Task {
     public Task() {}
 
     public Task(String title, String category, ZonedDateTime startDate, ZonedDateTime endDate,
-            boolean isDone) {
+            boolean isDeleteFlg, boolean isDone) {
         this.title = title;
         this.category = category;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.isDeleteFlg = false;
         this.isDone = isDone;
     }
 
@@ -65,6 +67,10 @@ public class Task {
         return updateTime;
     }
 
+    public boolean isDeleteFlg() {
+        return isDeleteFlg;
+    }
+
     public boolean isDone() {
         return isDone;
     }
@@ -92,6 +98,10 @@ public class Task {
 
     public void setUpdateTime(ZonedDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public void setDeleteFlg(boolean deleteFlg) {
+        isDeleteFlg = deleteFlg;
     }
 
     public void setDone(boolean done) {

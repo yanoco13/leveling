@@ -2,13 +2,13 @@ package com.levelog.arena.domain.user;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import com.levelog.arena.repo.UserReppository;
+import com.levelog.arena.repo.UserRepo;
 
 @Service
 public class UserService {
-    private final UserReppository userReppository;
+    private final UserRepo userReppository;
 
-    public UserService(UserReppository userReppository) {
+    public UserService(UserRepo userReppository) {
         this.userReppository = userReppository;
     }
 

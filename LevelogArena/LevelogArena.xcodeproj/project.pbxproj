@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		29E1AF9B2EBEF0BF00E0BE2E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 29E1AF9A2EBEF0BF00E0BE2E /* Lottie */; };
+		29FAD9292EFD553300ACBACE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 29FAD9282EFD553300ACBACE /* FirebaseAuth */; };
+		29FAD92B2EFD553300ACBACE /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 29FAD92A2EFD553300ACBACE /* FirebaseCore */; };
+		29FAD92D2F00A5EC00ACBACE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 29FAD92C2F00A5EC00ACBACE /* FirebaseAnalytics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				29E1AF9B2EBEF0BF00E0BE2E /* Lottie in Frameworks */,
+				29FAD92B2EFD553300ACBACE /* FirebaseCore in Frameworks */,
+				29FAD92D2F00A5EC00ACBACE /* FirebaseAnalytics in Frameworks */,
+				29FAD9292EFD553300ACBACE /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +77,9 @@
 			name = LevelogArena;
 			packageProductDependencies = (
 				29E1AF9A2EBEF0BF00E0BE2E /* Lottie */,
+				29FAD9282EFD553300ACBACE /* FirebaseAuth */,
+				29FAD92A2EFD553300ACBACE /* FirebaseCore */,
+				29FAD92C2F00A5EC00ACBACE /* FirebaseAnalytics */,
 			);
 			productName = LevelogArena;
 			productReference = 290A33C52EB831B300C8BE81 /* LevelogArena.app */;
@@ -102,6 +111,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				29E1AF992EBEF0BF00E0BE2E /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				29FAD8AB2EFD53F400ACBACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 290A33C62EB831B300C8BE81 /* Products */;
@@ -347,6 +357,14 @@
 				minimumVersion = 4.5.2;
 			};
 		};
+		29FAD8AB2EFD53F400ACBACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -354,6 +372,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 29E1AF992EBEF0BF00E0BE2E /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		29FAD9282EFD553300ACBACE /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29FAD8AB2EFD53F400ACBACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		29FAD92A2EFD553300ACBACE /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29FAD8AB2EFD53F400ACBACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		29FAD92C2F00A5EC00ACBACE /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29FAD8AB2EFD53F400ACBACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

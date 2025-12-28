@@ -1,1 +1,3 @@
 server/src/keys/serviceAccount.json
+server/src/keys/
+*.json

@@ -1,8 +1,11 @@
 package com.levelog.arena.domain.status;
 
 import java.time.ZonedDateTime;
+import com.levelog.arena.domain.reward.Reward;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -113,5 +116,59 @@ public class Status {
 
     public void setIsDeleteFlg(Boolean isDeleteFlg) {
         this.isDeleteFlg = isDeleteFlg;
+    }
+
+    private int nz(Integer v) {
+        return v == null ? 0 : v;
+    }
+
+    public void addStr(int delta) {
+        this.str = nz(this.str) + delta;
+    }
+
+    public void addIntel(int delta) {
+        this.intel = nz(this.intel) + delta;
+    }
+
+    public void addAgi(int delta) {
+        this.agi = nz(this.agi) + delta;
+    }
+
+    public void addDex(int delta) {
+        this.dex = nz(this.dex) + delta;
+    }
+
+    public void addVit(int delta) {
+        this.vit = nz(this.vit) + delta;
+    }
+
+    public void addCha(int delta) {
+        this.cha = nz(this.cha) + delta;
+    }
+
+    public void addLuk(int delta) {
+        this.luk = nz(this.luk) + delta;
+    }
+
+    @PrePersist
+    void onCreate() {
+        createTime = ZonedDateTime.now();
+        updateTime = createTime;
+    }
+
+
+    @PreUpdate
+    void onUpdate() {
+        updateTime = ZonedDateTime.now();
+    }
+
+    public void applyReward(Reward r) {
+        this.str = nz(this.str) + r.str();
+        this.agi = nz(this.agi) + r.agi();
+        this.vit = nz(this.vit) + r.vit();
+        this.intel = nz(this.intel) + r.intel();
+        this.dex = nz(this.dex) + r.dex();
+        this.cha = nz(this.cha) + r.cha();
+        this.luk = nz(this.luk) + r.luk();
     }
 }

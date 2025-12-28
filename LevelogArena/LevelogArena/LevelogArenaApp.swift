@@ -1,9 +1,36 @@
 import SwiftUI
+import FirebaseCore
+import FirebaseAuth
+
+final class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+    ) -> Bool {
+        FirebaseApp.configure()
+
+        // ログイン画面なしで使う：匿名ログインを起動時に保証
+        Task {
+            do {
+                if Auth.auth().currentUser == nil {
+                    _ = try await Auth.auth().signInAnonymously()
+                    print("Signed in anonymously:", Auth.auth().currentUser?.uid ?? "nil")
+                }
+            } catch {
+                print("Anonymous sign-in failed:", error)
+            }
+        }
+        return true
+    }
+}
 
 @main
 struct LevelogArenaApp: App {
-    @StateObject private var state = AppState(api: APIClient())
-    @StateObject private var logStore = LogStore()   // ← 追加！
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
+    /// ✅ APIClientには FirebaseAuthProvider を入れる（Authorizationが付く）
+    @StateObject private var state = AppState(api: APIClient(auth: FirebaseAuthProvider()))
+    @StateObject private var logStore = LogStore()
 
     var body: some Scene {
         WindowGroup {
@@ -15,7 +42,7 @@ struct LevelogArenaApp: App {
                 NavigationStack { CalendarView() }.tabItem { Label("Calendar", systemImage: "calendar") }
             }
             .environmentObject(state)
-            .environmentObject(logStore)   // ← 必ずここで渡す！
+            .environmentObject(logStore)
             .toast($state.toast)
         }
     }

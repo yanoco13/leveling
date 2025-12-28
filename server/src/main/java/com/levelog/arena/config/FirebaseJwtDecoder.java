@@ -23,8 +23,14 @@ public class FirebaseJwtDecoder implements JwtDecoder {
             Map<String, Object> claims = new HashMap<>(decodedToken.getClaims());
 
             String uid = decodedToken.getUid();
-            Instant issuedAt = Instant.ofEpochSecond((long) decodedToken.getClaims().get("iat"));
-            Instant expiresAt = Instant.ofEpochSecond((long) decodedToken.getClaims().get("exp"));
+
+            // ✅ 追加：Spring Security が name として使えるように subject を入れる
+            claims.putIfAbsent("sub", uid);
+            // ついでに取りやすい名前でも入れておくと便利
+            claims.putIfAbsent("uid", uid);
+
+            Instant issuedAt = Instant.ofEpochSecond(((Number) claims.get("iat")).longValue());
+            Instant expiresAt = Instant.ofEpochSecond(((Number) claims.get("exp")).longValue());
 
             return new Jwt(token, issuedAt, expiresAt, headers, claims);
         } catch (Exception e) {

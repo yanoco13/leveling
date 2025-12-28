@@ -2,12 +2,14 @@ package com.levelog.arena.domain.user;
 
 import java.time.ZonedDateTime;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
 public class User {
-    private String id;
+    @Id
+    private String userId;
     private String displayName;
     private String email;
     private ZonedDateTime createTime = ZonedDateTime.now();
@@ -15,15 +17,15 @@ public class User {
 
     public User() {}
 
-    public User(String id, String displayName, String email) {
-        this.id = id;
+    public User(String userId, String displayName, String email) {
+        this.userId = userId;
         this.displayName = displayName;
         this.email = email;
     }
 
     // getter
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
     public String getDisplayName() {
@@ -55,8 +57,8 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public void setCreateTime(ZonedDateTime createTime) {

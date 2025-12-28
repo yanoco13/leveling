@@ -1,10 +1,3 @@
-//
-//  AppState.swift
-//  LevelogArena
-//
-//  Created by 矢野遼 on 2025/11/03.
-//
-
 import SwiftUI
 import Combine
 
@@ -15,19 +8,16 @@ final class AppState: ObservableObject {
     @Published var toast: Toast? = nil
 
     let api: APIClient
+    lazy var taskAPI = TaskAPI(api: api)   // ← init引数名を合わせる
 
-    init(api: APIClient) { self.api = api }
+    init(api: APIClient) {
+        self.api = api
+    }
 
     func refreshProfile() async {
         profile = .loading
         do { profile = .loaded(try await api.fetchProfile()) }
         catch { profile = .failed(error) }
-    }
-
-    func startBattle() async {
-        lastBattle = .loading
-        do { lastBattle = .loaded(try await api.startBattle()) }
-        catch { lastBattle = .failed(error) }
     }
 }
 
@@ -39,5 +29,7 @@ enum Loadable<T> {
     case failed(Error)
 }
 
-
-struct Toast: Identifiable { let id = UUID(); let message: String }
+struct Toast: Identifiable {
+    let id = UUID()
+    let message: String
+}

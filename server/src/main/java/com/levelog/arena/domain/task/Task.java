@@ -1,14 +1,12 @@
 package com.levelog.arena.domain.task;
 
+import java.time.Duration;
 import java.time.ZonedDateTime;
-import com.google.api.client.util.DateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "tasks")
@@ -17,6 +15,7 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String userId;
     private String title;
     private String category;
     private ZonedDateTime startDate;
@@ -34,13 +33,17 @@ public class Task {
         this.category = category;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.isDeleteFlg = false;
+        this.isDeleteFlg = isDeleteFlg;
         this.isDone = isDone;
     }
 
     // getter
     public Integer getId() {
         return id;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getTitle() {
@@ -80,6 +83,10 @@ public class Task {
         this.title = title;
     }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public void setCategory(String category) {
         this.category = category;
     }
@@ -107,4 +114,20 @@ public class Task {
     public void setDone(boolean done) {
         isDone = done;
     }
+
+    public Duration getDuration() {
+        if (startDate == null || endDate == null)
+            return Duration.ZERO;
+        if (endDate.isBefore(startDate))
+            return Duration.ZERO; // ルール次第で例外でもOK
+        return Duration.between(startDate, endDate);
+    }
+
+    public void markDone() {
+        if (this.isDone)
+            return; // or throw
+        this.isDone = true;
+        this.updateTime = ZonedDateTime.now();
+    }
+
 }

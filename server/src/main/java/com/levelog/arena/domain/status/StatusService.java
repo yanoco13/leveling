@@ -1,6 +1,8 @@
 package com.levelog.arena.domain.status;
 
 import com.levelog.arena.domain.status.dto.StatusReponse;
+import java.util.Optional;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.levelog.arena.repo.StatusRepo;
@@ -14,22 +16,31 @@ public class StatusService {
         this.repo = repo;
     }
 
-    /**
-     * ステータス取得（なければ初期作成して返す）
-     */
+    private Status newInitial(String userId) {
+        return new Status(userId, 0, 0, 0, 0, 0, 0, 0, false);
+    }
+
+    @Transactional
+    public Status getOrCreateEntity(String userId) {
+        return repo.findById(userId).orElseGet(() -> repo.save(newInitial(userId)));
+    }
+
+
+    /** ステータス取得（なければ初期作成して返す） */
     @Transactional
     public StatusReponse getOrCreate(String userId) {
-        Status status = repo.findById(userId).orElseGet(() -> repo.save(new Status()));
+        Status status = repo.findById(userId).orElseGet(() -> {
+            Status s = new Status(userId, 0, 0, 0, 0, 0, 0, 0, false);
+            return repo.save(s);
+        });
         return toDto(status);
     }
 
-    /**
-     * ステータス更新（null は変更しない）
-     */
+    /** ステータス更新（null は変更しない） */
     @Transactional
     public StatusReponse update(String userId, Integer str, Integer intel, Integer dex, Integer luk,
             Integer cha, Integer vit, Integer agi) {
-        Status status = repo.findById(userId).orElseGet(() -> new Status());
+        Status status = getOrCreateEntity(userId); // 既存 or 初回作成
 
         if (str != null)
             status.setStr(str);
@@ -46,24 +57,39 @@ public class StatusService {
         if (agi != null)
             status.setAgi(agi);
 
-        // 削除フラグは更新では触らない（必要なら別メソッド）
-        status = repo.save(status);
+        // ここは save しなくても更新される（dirty checking）
         return toDto(status);
     }
 
-    /**
-     * 論理削除
-     */
+
     @Transactional
     public void softDelete(String userId) {
         Status status = repo.findById(userId).orElseThrow(
                 () -> new IllegalArgumentException("user_status not found: " + userId));
         status.setIsDeleteFlg(true);
-        repo.save(status);
+        // repo.save(status); // これも dirty checking でOK
     }
 
     private StatusReponse toDto(Status s) {
         return new StatusReponse(s.getUserId(), s.getStr(), s.getIntel(), s.getDex(), s.getLuk(),
                 s.getCha(), s.getVit(), s.getAgi(), s.getIsDeleteFlg());
     }
+
+    // @Transactional
+    // public Status getOrCreateEntity(String userId) {
+    // return repo.findById(userId).orElseGet(() -> {
+    // Status s = new Status(userId, 0, 0, 0, 0, 0, 0, 0, false);
+    // return repo.save(s); // 作成はここだけ
+    // });
+    // }
+
+    // @Transactional
+    // public Status getOrCreateEntity(String userId) {
+    // Optional<Status> found = repo.findById(userId);
+
+    // return found.orElseGet(() -> {
+    // Status s = new Status(userId, 0, 0, 0, 0, 0, 0, 0, false);
+    // return repo.save(s);
+    // });
+    // }
 }

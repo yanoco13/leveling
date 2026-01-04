@@ -7,5 +7,5 @@ struct TaskItem: Identifiable, Codable {
     var isDeleteFlg: Bool = false
     var startDate: Date
     var endDate: Date
-    var category: String = "力"
+    var category: String = "筋トレ"
 }

@@ -7,7 +7,7 @@ struct TaskForm: View {
     @Binding var selectedItem: String
     @Binding var inputMemo: String
 
-    let status = ["筋肉", "器用さ", "知力", "敏捷性", "体力", "魅力", "運"]
+    let status = ["筋トレ", "仕事", "勉強", "趣味", "その他"]
 
     var body: some View {
         VStack {

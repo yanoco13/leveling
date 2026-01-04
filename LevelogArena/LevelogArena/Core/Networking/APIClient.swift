@@ -42,6 +42,7 @@ final class APIClient {
         body: Encodable? = nil,
         authorized: Bool = true
     ) async throws -> T {
+        
 
         var url = baseURL
         url.append(path: path)
@@ -51,8 +52,13 @@ final class APIClient {
         req.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
         // 認証が必要なら Firebase ID Token を Authorization に付ける
-        let token = try await auth.getIDToken()
-        req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        if authorized {
+            let token = try await auth.getIDToken()
+            req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        print("➡️ Request:", req.httpMethod ?? "", req.url?.absoluteString ?? "")
+        print("➡️ Authorization:", req.value(forHTTPHeaderField: "Authorization") ?? "nil")
 
         if let body {
             req.httpBody = try encoder.encode(AnyEncodable(body))
@@ -61,11 +67,15 @@ final class APIClient {
         let (data, resp) = try await URLSession.shared.data(for: req)
         guard let http = resp as? HTTPURLResponse else { throw URLError(.badServerResponse) }
 
+        print("⬅️ Status:", http.statusCode)
+        print("⬅️ Body:", String(data: data, encoding: .utf8) ?? "")
+        
         guard (200..<300).contains(http.statusCode) else {
             let body = String(data: data, encoding: .utf8) ?? ""
             print("HTTP Error:", http.statusCode, body)
             throw URLError(.badServerResponse)
         }
+
 
 
         if T.self == Empty.self { return Empty() as! T }

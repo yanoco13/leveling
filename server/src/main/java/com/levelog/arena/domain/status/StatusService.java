@@ -1,8 +1,6 @@
 package com.levelog.arena.domain.status;
 
 import com.levelog.arena.domain.status.dto.StatusReponse;
-import java.util.Optional;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.levelog.arena.repo.StatusRepo;

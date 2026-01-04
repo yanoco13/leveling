@@ -58,6 +58,18 @@ create table if not exists tasks (
   update_time timestamp with time zone
 );
 
+create table if not exists status (
+  user_id varchar(255) primary key,
+  str integer not null,
+  intel integer not null,
+  dex integer not null,
+  luk integer not null,
+  cha integer not null,
+  vit integer not null,
+  agi integer not null,
+  is_delete_flg boolean not null default false
+);
+
 
 CREATE INDEX IF NOT EXISTS idx_activity_logs_user_time ON activity_logs(user_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_battles_attacker_time ON battles(attacker_id, created_at DESC);

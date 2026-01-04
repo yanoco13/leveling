@@ -7,7 +7,7 @@ struct AddTaskView: View {
     @State private var taskName = ""
     @State private var startDate = Date()
     @State private var endDate = Date()
-    @State private var selectedItem = "力"
+    @State private var selectedItem = "筋トレ"
     @State private var inputMemo = ""
 
     let onCreated: (TaskItem) -> Void

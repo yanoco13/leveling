@@ -2,6 +2,7 @@ package com.levelog.arena.domain.status;
 
 import java.time.ZonedDateTime;
 import com.levelog.arena.domain.reward.Reward;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
@@ -13,6 +14,7 @@ import jakarta.persistence.Table;
 public class Status {
 
     @Id
+    @Column(name = "user_id")
     private String userId;
     private Integer str; // 力
     private Integer agi; // 速さ

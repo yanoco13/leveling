@@ -31,7 +31,6 @@ final class TaskViewModel: ObservableObject {
         do {
             tasks = try await taskAPI.fetchTasks()
         } catch {
-            errorMessage = "タスク取得に失敗しました: \(error)"
             print("Fetch error:", error)
         }
     }

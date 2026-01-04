@@ -22,7 +22,7 @@ struct LogEntry: Identifiable, Codable {
             switch self {
             case .work: return "仕事"
             case .study: return "勉強"
-            case .health: return "健康"
+            case .health: return "筋トレ"
             case .hobby: return "趣味"
             case .other: return "その他"
             case .doneTask: return "タスク完了"

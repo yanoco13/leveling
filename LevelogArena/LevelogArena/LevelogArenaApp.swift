@@ -40,10 +40,15 @@ struct LevelogArenaApp: App {
                 NavigationStack { HistoryView() }.tabItem { Label("History", systemImage: "calendar") }
                 NavigationStack { TodayView() }.tabItem { Label("Today", systemImage: "sun.max") }
                 NavigationStack { CalendarView() }.tabItem { Label("Calendar", systemImage: "calendar") }
+                NavigationStack { TimerPanelView(taskId: 1) }.tabItem { Label("Calendar", systemImage: "calendar") }
             }
             .environmentObject(state)
             .environmentObject(logStore)
             .toast($state.toast)
+            // ✅ 追加：起動時に running session を復元（任意）
+            .onAppear {
+                state.timerVM.onAppear()
+            }
         }
     }
 }

@@ -8,7 +8,10 @@ final class AppState: ObservableObject {
     @Published var toast: Toast? = nil
 
     let api: APIClient
-    lazy var taskAPI = TaskAPI(api: api)   // ← init引数名を合わせる
+    lazy var taskAPI = TaskAPI(api: api)
+
+    // ✅ 追加：タイマー用ViewModel（アプリ全体で共有）
+    lazy var timerVM = TaskTimerViewModel(taskAPI: taskAPI)
 
     init(api: APIClient) {
         self.api = api
@@ -20,7 +23,6 @@ final class AppState: ObservableObject {
         catch { profile = .failed(error) }
     }
 }
-
 
 enum Loadable<T> {
     case idle

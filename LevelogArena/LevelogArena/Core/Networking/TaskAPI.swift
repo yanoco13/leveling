@@ -96,4 +96,17 @@ final class TaskAPI {
         f.formatOptions = [.withInternetDateTime]
         return f.string(from: date)
     }
+
+    func startSession(taskId: Int) async throws -> TaskSession {
+        try await api.request("/api/tasks/\(taskId)/sessions/start", method: "POST")
+    }
+
+    func stopSession(sessionId: Int) async throws -> TaskSession {
+        try await api.request("/api/task-sessions/\(sessionId)/stop", method: "POST")
+    }
+
+    func fetchRunningSession() async throws -> TaskSession {
+        try await api.request("/api/task-sessions/running")
+    }
+
 }

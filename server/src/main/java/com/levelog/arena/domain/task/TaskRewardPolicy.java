@@ -31,4 +31,15 @@ public class TaskRewardPolicy {
             return 0; // ルール次第で例外でもOK
         return java.time.Duration.between(task.getStartDate(), task.getEndDate()).toMinutes();
     }
+
+    public Reward calculate(String category, long minutes) {
+        int base = (int) Math.min(10, Math.max(1, (minutes + 29) / 30));
+
+        return switch (category) {
+            case "study", "勉強", "知力" -> new Reward(0, 0, 0, base, 0, 0, 0);
+            case "workout", "筋トレ", "力" -> new Reward(base, 0, base, 0, 0, 0, 0);
+            case "dev", "開発", "器用さ" -> new Reward(0, 0, 0, base, base / 2, 0, 0);
+            default -> Reward.zero();
+        };
+    }
 }
